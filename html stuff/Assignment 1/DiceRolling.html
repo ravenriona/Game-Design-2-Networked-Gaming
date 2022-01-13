@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+    <head>
+        <title>Dice Game</title>
+        <script src = 'rollDie.js'> </script>
+    </head>
+
+    <body> 
+        <img src = "side6.png" id = "dice1">
+        <img src = "side6.png" id = "dice2">
+            <h1>Roll doubles to win!</h1>
+            <script>
+                var die = new dice();
+            </script>
+            <p id = "playCounter"></p>
+            <p id = "winCounter"></p>
+
+            <script>
+
+            function update(){
+                document.getElementById("playCounter").innerHTML="Play Count : " + this.die.playVar;
+                document.getElementById("winCounter").innerHTML="Win Count : " + this.die.winVar;
+                return;
+            }
+            
+
+            </script>
+
+
+      
+
+            <button onclick="die.RollDice(die.RandomNumber(),die.RandomNumber()); update();" > Roll the Dice </button> 
+
+    </body> 
+</html> 
+
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+    <head>
+        <title>Human</title>
+        <script src="human.js"></script>
+    </head>
+
+    <body>
+        <canvas id="myCanvas" width="640" height="400" style="border:5px solid black;"></canvas>
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+
+            function ClearScene(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+            }
+
+            function update(SuperHuman){
+                ClearScene();
+                SuperHuman.update();
+            }
+
+            function main(){
+                var SuperHuman = new Body();
+                setInterval(update,1000,SuperHuman);
+            }
+
+            main();
+        </script>
+
+    </body>
+</html> 
+
+
+
+

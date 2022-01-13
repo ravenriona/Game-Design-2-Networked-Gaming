@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+    <body>
+        <canvas id="example" width="500" height="500" style= "border:5px solid black;"></canvas>
+        <script id="vertex-shader" type="x-shader/x-vertex">
+            attribute vec2 coordinates;
+
+            void main(){
+                gl_Position = vec4(coordinates,0.0,1.0);
+            }
+        </script>
+
+        <script id="fragment-shader" type="x-shader/x-fragment">
+            void main(){
+                gl_FragColor=vec4(1.0,0.0,0.0,1.0);
+            }
+
+
+        </script>
+        
+        
+        
+        <script>
+
+            //Prepare for WebGL
+            var canvas = document.getElementById('example');
+            var gl = canvas.getContext('webgl');
+
+            //Define Geometry to write in to our buffers
+            //vec2=(x,y)
+            //vec3=(x,y,z)
+            //vec4=(x,y,z,w)
+            var vertices= [-1,-1,0,1,1,-1];//Regular Array
+
+            //create vertex buffer
+            var vertex_buffer = gl.createBuffer();
+
+            //Bind empty buffer 
+            gl.bindBuffer(gl.ARRAY_BUFFER,vertex_buffer);
+
+            //Pass the verticies to the buffer
+            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices),gl.STATIC_DRAW);
+
+            //Unbind the vertex buffer
+            gl.bindBuffer(gl.ARRAY_BUFFER,null);
+
+            //SHADERS
+            //Vertex Shader
+            //Place vertex shader in the variable vertexShaderSource
+            var vertexShaderSource=document.getElementById("vertex-shader").text;
+           
+           //Create a vertex shader object
+           var vertexShader = gl.createShader(gl.VERTEX_SHADER);
+
+            //Attach vertex shader to the vertex shader code
+            gl.shaderSource(vertexShader, vertexShaderSource);
+
+            //CompileShader
+            gl.compileShader(vertexShader);
+
+            //Fragment Shader
+            var fragmentShaderSource= document.getElementById("fragment-shader").text;
+
+            //Create a fragment shader object 
+            var fragmentShader = gl.createShader(gl.FRAGMENT_SHADER);
+
+            //Attach the fragment shader to the fragment shader code
+            gl.shaderSource(fragmentShader,fragmentShaderSource);
+
+            //Compile Fragment shader //We will talk about how to debug shaders later in class.
+            gl.compileShader(fragmentShader);
+
+            //Create Shader program
+            var shaderProgram = gl.createProgram();
+
+            //Attach the shaders to the shader Program
+            gl.attachShader(shaderProgram,vertexShader);
+            gl.attachShader(shaderProgram,fragmentShader);
+            
+            //Link both shader programs
+            gl.linkProgram(shaderProgram);
+            //Choose the shader you would like to use
+            gl.useProgram(shaderProgram);
+
+            //Bind buffer to the vertex buffer-since we will 
+            //be passing the vertex buffer data into the shader 
+            //as "coordinates"
+            gl.bindBuffer(gl.ARRAY_BUFFER,vertex_buffer);
+
+            //get the attributeLocation in the shader
+            var coordinates1=gl.getAttribLocation(shaderProgram,"coordinates");
+            
+            //Pointer to pass vertex information
+            gl.vertexAttribPointer(coordinates1,2,gl.FLOAT,false,0,0);
+
+            gl.enableVertexAttribArray(coordinates1);
+            //What you defined as vertices in JS
+            //is now passed on to the shader code
+            //as attribute vec2 coordinates
+
+            //clear the canvas
+            gl.clearColor(0.0,0.0,1.0,1.0);
+            gl.clear(gl.COLOR_BUFFER_BIT);
+
+            //set the camera
+            gl.viewport(0,0,canvas.width,canvas.height);
+
+            gl.drawArrays(gl.TRIANGLES,0,3);
+
+        </script>
+    </body>
+</html> 
+
+
+
+

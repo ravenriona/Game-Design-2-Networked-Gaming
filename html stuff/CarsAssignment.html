@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <head>
+        <title>Race</title>
+        <script src="Vehicle.js"></script>
+    </head>
+
+    
+    <body>
+        <canvas id="myCanvas" width="640" height="400" style="border:5px solid black;"></canvas>
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var mercadesx = 30;
+            var mercadesy = 100;
+            var fordx = 30;
+            var fordy = 200;
+            var bmwx = 30;
+            var bmwy = 300;
+            var ford = new Car("ford");
+                var mercades = new Car("mercades");
+                var beamer = new Car("bmw");
+                var interval = setInterval(update,300,ford,mercades,beamer);
+
+            function ClearScene(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+            }
+            function update(ford,mercades,beamer){
+                ClearScene();
+                ford.update();
+                mercades.update();
+                beamer.update();
+                if (ford.X +15>= 650){
+                    clearInterval(interval);
+                    WritingOnScreen('50px Arial', 'green', "Ford Wins!", 100,150)
+                }
+                if (mercades.X +15 >= 650){
+                    clearInterval(interval);
+                    WritingOnScreen('50px Arial', 'blue', "Mercades Wins!", 100,150)
+
+                }
+                if (beamer.X +15 >= 650){
+                    clearInterval(interval);
+                    WritingOnScreen('50px Arial', 'red', "BMW Wins!", 100,150)
+
+                }
+            }
+            function gradient(){
+                var gradientGrid = ctx.createLinearGradient(0,0,300,300)
+                gradientGrid.addColorStop(0, "red");
+                gradientGrid.addColorStop(.5, "blue");
+                gradientGrid.addColorStop(1, "green");
+                return gradientGrid;
+
+            }
+
+            function WritingOnScreen(font,color,writing,x,y){
+                ctx.font=font;
+                ctx.fillStyle=color,
+                ctx.fillText(writing,x,y)
+            }
+
+            function main(){
+                WritingOnScreen('50px Arial', gradient(), '3...2...1..Go!', 100,100);
+            }
+            main();
+        </script>
+
+    </body>
+</html> 
+
+
+
+

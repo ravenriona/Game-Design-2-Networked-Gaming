@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+    <head>
+        <title>Canvas Example</title>
+    </head>
+
+    <body onload= "draw();">
+        <canvas id="example" width="500" height="500" style= "border:5px solid black;"></canvas>
+        <script>
+            var canvas = document.getElementById('example');
+            var ctx= canvas.getContext('2d');
+        </script>
+
+        <script>
+            function draw(){
+                //First Square
+                ctx.fillStyle=RandomColor('yes');
+                ctx.fillRect(0,0,100,100);
+
+                //Second Square
+                ctx.fillStyle=RandomColorHex();
+                ctx.fillRect(25,25,50,50);
+
+                ctx.fillStyle='rgb(0,0,0)'
+                ctx.fillRect(100, 100, 100, 100);
+
+                ctx.clearRect(120,120,60,60);
+                ctx.strokeRect(125, 125,50,50);
+
+                ClearScene();
+                ctx.beginPath();
+                ctx.moveTo(20,20);
+                ctx.lineTo(300, 300);
+                ctx.stroke();
+
+                ClearScene();
+                ctx.beginPath();
+                ctx.moveTo(75,50);
+                ctx.lineTo(100,75);
+                ctx.lineTo(100,25);
+                ctx.fill();
+
+                drawLine(20,75,45,90,100,'butt',RandomColor());
+                // drawTriangle(400,400,70)
+                joinLine(20,20,100,50,20,100,5,'round', 'milter', 'green');
+                WritingOnScreen('50px Arial', RandomColor(),'Hello World',50,50);
+                
+                ClearScene();
+                circle(100,100,50,1*Math.PI,2*Math.PI,RandomColor(),'fill');
+                ClearScene();
+                circle(100,100,50,0*Math.PI,2*Math.PI,RandomColor(),'stroke' )
+                circle(75,75,10,0*Math.PI,2*Math.PI,RandomColor(),'fill');
+                circle(120,75,10,0*Math.PI,2*Math.PI,RandomColor(),'fill');
+                drawTriangle(100,100,90,110,100,110,RandomColor());
+                circle(100,100,30,1*Math.PI,2*Math.PI,RandomColor(),'stroke',true);
+
+            }
+
+            function RandomColor(opacity){
+                if (opacity=='yes'){
+                    var r = Math.round(Math.random()*255);
+                    var g = Math.round(Math.random()*225);
+                    var b = Math.round(Math.random()*225);
+                    var a = Math.round(Math.random()*225);
+                    return randomcolor = 'rgb('+r+','+g+','+b+','+a+')';
+                }
+            
+                var r = Math.round(Math.random()*255);
+                var g = Math.round(Math.random()*225);
+                var b = Math.round(Math.random()*225);
+            return randomcolor = 'rgb('+r+','+g+','+b+')';
+            }
+
+            function RandomColorHex(){
+    
+                return randomcolor1 = '#'+Math.floor(Math.random()*16777215).toString(16);
+            }
+            function ClearScene(){
+                ctx.clearRect(0,0, canvas.width, canvas.height);
+            }
+
+            function drawLine(a0,b0,a1,b1,linewidth,linecap,color){
+                ctx.beginPath();
+                ctx.lineWidth = linewidth;
+                ctx.lineCap = linecap;
+                ctx.moveTo(a0,b0);
+                ctx.lineTo(a1,b1);
+                ctx.strokeStyle = color;
+                ctx.stroke();
+            }
+
+            function drawTriangle(a0,b0,a1,b1,a2,b2, color){
+                ctx.beginPath();
+                ctx.moveTo(a0,b0);
+                ctx.lineTo(a1,b1);
+                ctx.lineTo(a2,b2);    
+                fillStyle = color;
+                ctx.fill();
+            }
+
+            function joinLine(a0,b0,a1,b1,a2,b2,linewidth, linecap, linejoin,color){
+                ctx.beginPath();
+                ctx.lineWidth = linewidth;
+                ctx.lineCap = linecap;
+                ctx.lineJoin = linejoin;
+                ctx.moveTo(a0,b0);
+                ctx.lineTo(a1,b1);
+                ctx.lineTo(a2,b2);
+                ctx.strokeStyle = color;
+                ctx.stroke();
+            }
+
+            function WritingOnScreen(font,color,writing,x,y){
+                ctx.font=font;
+                ctx.fillStyle=color;
+                ctx.fillText(writing,x,y);
+            }
+
+        
+            function circle(x,y,radius,startAngle,endAngle,color,style,countercw){
+                ctx.beginPath();
+                ctx.arc(x,y,radius, startAngle,endAngle,countercw);
+                if(style == 'fill'){
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                }
+                else if(style == 'stroke'){
+                    ctx.strokeStyle=color;
+                    ctx.stroke();
+                }
+            }
+        </script>
+    </body>
+</html> 
+

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+    <head>
+        <title>Dice Game</title>
+    </head>
+
+    <body>
+        <img id = 'dice1'/>
+        <img id = 'dice2'/>
+        <script> 
+        var image1 = document.getElementById("image1");
+        var image2 = document.getElementById("image2");
+        image1.width = 100;
+        image1.height = 100;
+        image1.src = "dice"
+        </script>
+        <script src ="diceRoll.js"></script>
+        <h1>Dice Game!</h1>
+        <p> Roll a double to win!</p>
+        <script>
+            var die1 = new diceRoll();
+            var die2 = new diceRoll();
+        </script>
+        <button onclick="diceRoll">Roll The Dice </button> 
+        
+
+
+    </body>
+</html> 
+
+
+
+

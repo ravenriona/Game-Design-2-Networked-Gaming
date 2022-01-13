@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <head>
+        <title>Human</title>
+        <script src="human.js"></script>
+    </head>
+
+    <body>
+        <canvas id="myCanvas" width="640" height="400" style="border:5px solid black;"></canvas>
+        <script>
+            var canvas = document.getElementById("myCanvas");
+            var ctx = canvas.getContext("2d");
+            var left=false;
+            var right=false;
+            var up=false;
+            var down=false;
+
+            function ClearScene(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+            }
+
+            function update(SuperHuman){
+                ClearScene();
+                SuperHuman.update();
+            }
+
+            function main(){
+                var SuperHuman = new Body();
+                setInterval(update,500,SuperHuman);
+            }
+
+            window.addEventListener('keydown',function(event){
+                switch (event.keyCode){
+                    //Left arrow
+                    case 37:
+                        console.log("Hey");
+                        left=true;
+                    break;
+                    //Right arrow
+                    case 39:
+                    right=true;
+                    break;
+
+                    //Down arrow
+                    case 40:
+                    down=true;
+                    break;
+                    
+                    //Up arrow
+                    case 38:
+                    up=true;
+                    break;
+
+
+                }
+            });
+        
+            main();
+        </script>
+
+    </body>
+</html> 
+
+
+
+
